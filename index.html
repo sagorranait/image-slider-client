@@ -1,12 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
+   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+   <style>
+      .slick-carousel {
+         width: 100%;
+         position: relative;
+      }
+
+      /* The width of each slide */
+      .slick-slide {
+         width: auto;
+      }
+
+      .slider-item a {
+         display: inline-block;
+         background: white;
+         text-shadow: none;
+         color: black;
+         padding: 5px 15px;
+         font-size: 18px;
+         text-decoration: none;
+         border-radius: 4px;
+         margin-top: 10px;
+      }
+
+      .item-1,
+      .item-2,
+      .item-3,
+      .item-4{
+         width: 100%;
+         min-width: 100%; 
+         height: 40vw;
+         max-height: 500px;
+         list-style: none; 
+         scroll-snap-align: start;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         flex-direction: column;
+         color: white;
+         font-weight: bold;
+         font-size: 30px;
+         text-align: center;
+         text-shadow: 0px 0px 10px rgba(0,0,0,0.75);
+         position: relative;
+      }
+
+      .item-1::after,
+      .item-2::after,
+      .item-3::after,
+      .item-4::after{
+         content: "";
+         position: absolute;
+         left: 0;
+         top: 0;
+         box-shadow: inset 0px 0px 120px 30px rgba(0,0,0,0.35);
+         width: 100%;
+         height: 100%;
+         pointer-events: none;
+      }
+
+      .item-1{
+         background: url(https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1500) center center / cover no-repeat; 
+      }
+
+      .item-2{
+         background: url(https://images.pexels.com/photos/1056251/pexels-photo-1056251.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1500) center center / cover no-repeat; 
+      }
+
+      .item-3{
+         background: url(https://images.pexels.com/photos/4492170/pexels-photo-4492170.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1500) center center / cover no-repeat; 
+      }
+
+      .item-4{
+         background: url(https://images.pexels.com/photos/2558605/pexels-photo-2558605.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1500) center center / cover no-repeat; 
+      }
+      /* Color of the arrows */
+
+      .slick-next,
+      .slick-prev{
+         background: none;
+         color: #fff;
+         font-size: 50px;
+         cursor: pointer;
+         border: none;
+         outline: none;
+      }
+
+      .slick-next {
+         position: absolute;
+         top: 40%;
+         right: 0;
+         transform: translate(-50%, -50%);
+      }
+
+      .slick-prev {
+         position: absolute;
+         top: 40%;
+         left: 1.5%;
+         transform: translate(-50%, -50%);
+         z-index: 1;
+      }
+
+   .slick-dots {
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 1rem 0;	
+      list-style-type: none;		
+   }
+
+   .slick-dots li{
+      margin: 0 0.25rem;
+   }
+
+   .slick-dots button{
+      display: block;
+      width: 1rem;
+      height: 1rem;
+      padding: 0;   
+      border: none;
+      border-radius: 100%;
+      background-color: gainsboro;   
+      text-indent: -9999px;
+   }
+
+   .slick-dots li.slick-active button {
+      background-color: pink;
+   }
+   </style>
 </head>
 <body>
-   coming
+   <div class="slick-carousel">
+      <div class="slider-item">
+         <div class="item-1">
+            Nice cat number 1<br />
+            <a href="https://www.google.com">adopt me</a>
+         </div>
+      </div>
+      <div class="slider-item">
+         <div class="item-2">
+            Nice cat number 2<br />
+            <a href="https://www.google.com">adopt me</a>
+         </div>
+      </div>
+      <div class="slider-item">
+         <div class="item-3">
+            Nice cat number 3<br />
+            <a href="https://www.google.com">adopt me</a>
+         </div>
+      </div>
+      <div class="slider-item">
+         <div class="item-4">
+            Nice cat number 4<br />
+            <a href="https://www.google.com">adopt me</a>
+         </div>
+      </div>
+    </div>
+
+   <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+   <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+   <script>
+      $(".slick-carousel").slick({
+         infinite: true,
+         slidesToShow: 3, // Shows a three slides at a time
+         slidesToScroll: 1, // When you click an arrow, it scrolls 1 slide at a time
+         arrows: true, // Adds arrows to sides of slider
+         dots: true // Adds the dots on the bottom
+      });
+      // arrow
+      const prevArrow = document.getElementsByClassName('slick-prev');
+      const nextArrow = document.getElementsByClassName('slick-next');
+      prevArrow[0].textContent = '‹';
+      nextArrow[0].textContent = '›';
+   </script>
 </body>
 </html>
