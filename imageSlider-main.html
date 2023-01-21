@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+
+        // Append navigation to panel
+
+        $(".imageSlider_container").each(function() {
+            $(this).find(".imageSlider_nav").append(
+                "<button class='prev_imageSlider'>prev</button>" +
+                "<button class='next_imageSlider'>next</button>");
+            $(this).find(".imageSlider_item").first().addClass("open");
+        });
+
+        // Add Attributes
+
+        function active_imageSlider_item_no($imageSlider_container) {
+            // Count all items
+            var $all_imageSlider_item_count = $imageSlider_container.find(".imageSlider_item").length;
+            $imageSlider_container.find(".all_imageSlider_item_count").text($all_imageSlider_item_count);
+            // Active item number
+            var $value = $imageSlider_container.find(".imageSlider_item.open").attr("count");
+            $imageSlider_container.find(".active_imageSlider_item_no").text($value);
+            $imageSlider_container.find(".imageSlider_dt" + $value).addClass("open");
+        }
+
+        function translate_imageSlider($imageSlider_container) {
+            var $translateValue = $imageSlider_container.find(".imageSlider_item.open").attr("count");
+            var $finalValue = ($translateValue - 1) * -100;
+            $imageSlider_container.find(".imageSlider_panel").css("transform", "translate(" + $finalValue + "%)");
+        }
+
+        $(".imageSlider_container").each(function(i, el) {
+            $(el).find(".imageSlider_item").each(function(el) {
+                $(this).attr("count", (el + 1));
+            });
+            var $imageSlider_container = $(this);
+            active_imageSlider_item_no($imageSlider_container);
+        });
+
+        // Dots
+
+        $(".imageSlider_item").each(function() {
+            var $imageSlider_container = $(this).closest(".imageSlider_container");
+            $imageSlider_container.find(".imageSlider_dots").append("<div class='imageSlider_dt'></div>");
+        });
+
+        $(".imageSlider_dots").each(function(i, el) {
+            if ($(".imageSlider_dt").length < 2) {
+                var $image_container = $(this).closest(".imageSlider_container");
+                $image_container.find(".imageSlider_dots, .imageSlider_nav, .imageSlider_item_count").hide();
+            }
+            $(el).find(".imageSlider_dt").each(function(el) {
+                $(this).attr("class", "imageSlider_dt" + (el + 1));
+            });
+            $(this).find("[class^='imageSlider_dt']").first().addClass("open");
+        });
+
+        $("[class^='imageSlider_dt']").click(function() {
+            var $imageSlider_container = $(this).closest(".imageSlider_container");
+            if (!$(this).hasClass("open")) {
+                var $active_count = $(this).attr("class").split("imageSlider_dt").splice(1);
+
+                $imageSlider_container.find(".open").removeClass("open");
+                $imageSlider_container.find(`[count='${$active_count}']`).addClass("open");
+                $(this).addClass("open");
+
+                translate_imageSlider($imageSlider_container);
+                active_imageSlider_item_no($imageSlider_container);
+            }
+        });
+
+        // Prev / Next
+
+        $(".prev_imageSlider").click(function() {
+            var $imageSlider_container = $(this).closest(".imageSlider_container");
+
+            if ($imageSlider_container.find(".open").prev(".imageSlider_item").length) {
+                $imageSlider_container
+                    .find(".open")
+                    .removeClass("open")
+                    .prev(".imageSlider_item")
+                    .addClass("open");
+                translate_imageSlider($imageSlider_container);
+                active_imageSlider_item_no($imageSlider_container);
+            } else {
+                $imageSlider_container
+                    .find(".open")
+                    .removeClass("open")
+                    .parent()
+                    .find(".imageSlider_item")
+                    .last()
+                    .addClass("open");
+                translate_imageSlider($imageSlider_container);
+                active_imageSlider_item_no($imageSlider_container);
+            }
+
+        });
+
+        $(".next_imageSlider").click(function() {
+            var $imageSlider_container = $(this).closest(".imageSlider_container");
+
+            if ($imageSlider_container.find(".open").next(".imageSlider_item").length) {
+                $imageSlider_container
+                    .find(".open")
+                    .removeClass("open")
+                    .next(".imageSlider_item")
+                    .addClass("open");
+                translate_imageSlider($imageSlider_container);
+                active_imageSlider_item_no($imageSlider_container);
+            } else {
+                $imageSlider_container
+                    .find(".open")
+                    .removeClass("open")
+                    .parent()
+                    .find(".imageSlider_item")
+                    .eq(0)
+                    .addClass("open");
+                translate_imageSlider($imageSlider_container);
+                active_imageSlider_item_no($imageSlider_container);
+            }
+
+        });
+
+    });
+    </script>
+</head>
+
+<body>
+
+    <style>
+    .imageSlider_container .open {
+        background: pink;
+    }
+
+    .imageSlider_container {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .imageSlider_panel {
+        display: flex;
+        padding-left: 0;
+        transition: 0.2s ease-in-out;
+    }
+
+    .imageSlider_item {
+        list-style: none;
+        flex: 0 0 100%;
+    }
+
+    /* imageSlider Dots */
+
+    .imageSlider_dots {
+        display: flex;
+    }
+
+    div[class^='imageSlider_dt'] {
+        display: block;
+        height: 13px;
+        width: 13px;
+        background: gainsboro;
+        border-radius: 10px;
+        margin: 5px 3px;
+    }
+    </style>
+
+    <div class='imageSlider_container'>
+
+        <div class='imageSlider_item_count'>
+            <span class='active_imageSlider_item_no'></span>
+            <span>/</span>
+            <span class='all_imageSlider_item_count'></span>
+        </div>
+
+        <div class='imageSlider_panel'>
+            <div class='imageSlider_item'>1</div>
+            <div class='imageSlider_item'>2</div>
+            <div class='imageSlider_item'>3</div>
+            <div class='imageSlider_item'>4</div>
+        </div>
+
+        <div class='imageSlider_nav'></div>
+        <div class='imageSlider_dots'></div>
+    </div>
+
+    <!-- -->
+
+    <div class='imageSlider_container'>
+
+        <div class='imageSlider_item_count'>
+            <span class='active_imageSlider_item_no'></span>
+            <span>/</span>
+            <span class='all_imageSlider_item_count'></span>
+        </div>
+
+        <div class='imageSlider_panel'>
+            <div class='imageSlider_item'>1</div>
+            <div class='imageSlider_item'>2</div>
+            <!--div class='imageSlider_item'>3</div>
+            <div class='imageSlider_item'>4</div-->
+        </div>
+
+        <div class='imageSlider_nav'></div>
+        <div class='imageSlider_dots'></div>
+    </div>
+
+</body>
+
+</html>
