@@ -20,14 +20,14 @@
             // Initialize the carousel
             nextarrow.style.display = 'block';
             prevarrow.style.display = 'block';
-            ele.scrollLeft = 1;
+            ele.scrollLeft = 4;
             bullets[0].classList.add('selected');
             slides[0].classList.add('selected');
-            if(amountvisible>1) {
-            var removeels = carousel.querySelectorAll('ol li:nth-last-child(-n + '+(amountvisible-1)+')');
-            removeels.forEach(function(removeel) {
-                removeel.remove();
-            });
+            if(amountvisible>4) {
+                var removeels = carousel.querySelectorAll('ol li:nth-last-child(-n + '+(amountvisible-1)+')');
+                removeels.forEach(function(removeel) {
+                    removeel.remove();
+                });
             }
     
             const setSelected = function() {
@@ -38,9 +38,9 @@
                     slide.classList.remove('selected');
                 });
                 const scrolllength = carousel.querySelector('ul li:nth-child(2)').offsetLeft - carousel.querySelector('ul li:nth-child(1)').offsetLeft;
-                const nthchild = (Math.round((ele.scrollLeft/scrolllength)+1));
+                let nthchild = (Math.round((ele.scrollLeft/scrolllength)+1));
                 carousel.querySelector('ol li:nth-child('+nthchild+')').classList.add('selected'); 
-                carousel.querySelector('ul li:nth-child('+nthchild+')').classList.add('selected'); 
+                carousel.querySelector('ul li:nth-child('+nthchild+')').classList.add('selected');
                 if(carousel.parentElement.parentElement.querySelector('.dynamictitle')) {
                     const title = carousel.querySelector('ul li:nth-child('+nthchild+') img').getAttribute('title'); 
                     if(title) carousel.parentElement.parentElement.querySelector('.dynamictitle').innerHTML = title;
@@ -69,7 +69,7 @@
             }
             
             const setInteracted = function() {
-            ele.classList.add('interacted');
+                ele.classList.add('interacted');
             }
                 
             // Attach the handlers
@@ -141,7 +141,7 @@
             left: 0;
             top: 0;
             box-shadow: inset 0px 0px 120px 30px rgba(0,0,0,0.35);
-            width: 33%;
+            width: 33.33%;
             height: 100%;
             pointer-events: none;
         }
@@ -156,12 +156,12 @@
             background: gray;
             -ms-overflow-style: none; /* IE and Edge */
             scrollbar-width: none; /* Firefox */
-            width: 33%;
+            width: 100%;
         }
         .carousel ul::-webkit-scrollbar {display: none; /* Hide scrollbar for Chrome, Safari and Opera */} 
         .carousel ul li {
-            width: 100%;
-            min-width: 100%; 
+            width: 33.33%;
+            min-width: 33.33%; 
             list-style: none; 
             background: url(https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1500) center center / cover no-repeat; 
             scroll-snap-align: start;

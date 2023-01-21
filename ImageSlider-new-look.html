@@ -175,6 +175,12 @@
       const nextArrow = document.getElementsByClassName('slick-next');
       prevArrow[0].textContent = '‹';
       nextArrow[0].textContent = '›';
+
+      let ele = document.getElementById('body');
+      ele.addEventListener('contextmenu', (ev)=>{
+         console.log("Right click disabled");
+         ev.preventDefault(); // this will prevent browser default behavior 
+      });
    </script>
 </body>
 </html>
