@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <style>
+      *{margin: 0; padding: 0;}
+      a{text-decoration: none;}
+      li{list-style: none;}
+
+      .item-1,
+      .item-2,
+      .item-3,
+      .item-4{
+         width: 100%;
+         min-width: 100%; 
+         height: 40vw;
+         max-height: 500px;
+         list-style: none; 
+         scroll-snap-align: start;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         flex-direction: column;
+         color: white;
+         font-weight: bold;
+         font-size: 30px;
+         text-align: center;
+         text-shadow: 0px 0px 10px rgba(0,0,0,0.75);
+         position: relative;
+      }
+
+      .item-1::after,
+      .item-2::after,
+      .item-3::after,
+      .item-4::after{
+         content: "";
+         position: absolute;
+         left: 0;
+         top: 0;
+         box-shadow: inset 0px 0px 120px 30px rgba(0,0,0,0.35);
+         width: 100%;
+         height: 100%;
+         pointer-events: none;
+      }
+
+      .item-1{
+         background: url(https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1500) center center / cover no-repeat; 
+      }
+
+      .item-2{
+         background: url(https://images.pexels.com/photos/1056251/pexels-photo-1056251.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1500) center center / cover no-repeat; 
+      }
+
+      .item-3{
+         background: url(https://images.pexels.com/photos/4492170/pexels-photo-4492170.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1500) center center / cover no-repeat; 
+      }
+
+      .item-4{
+         background: url(https://images.pexels.com/photos/2558605/pexels-photo-2558605.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1500) center center / cover no-repeat; 
+      }
+
+      .slide a {
+         display: inline-block;
+         background: white;
+         text-shadow: none;
+         color: black;
+         padding: 5px 15px;
+         font-size: 18px;
+         text-decoration: none;
+         border-radius: 4px;
+         margin-top: 10px;
+      }
+
+      .slide_wrap {
+         width: 100%;
+         background: rgba(0, 0, 0, 0.1);
+         position: relative;
+      }
+
+      .slide_show {
+         width: 100%;
+         overflow: hidden;
+         position: relative;
+         margin: 0 auto;
+      }
+
+      .slide_show .slide_img{
+         width: 5000px; 
+         overflow: hidden;
+      }
+      .slide_show .slide_img > div {
+         float: left;
+         width: 640px;
+      }
+      .slide_btn a {
+         position: absolute;
+         top: 45%;
+         transform: translateY(-50%);
+         color: #fff;
+         font-size: 60px;
+      }
+
+      .slide_btn a.prev {
+         left: 1%;
+      }
+      .slide_btn a.next {
+         right: 1%;
+      }
+   </style>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   <script>
+      $(function(){
+         var container = $(".slide_wrap"); 
+         var slideShow = container.find(".slide_show");
+         var slideImg = slideShow.find(".slide_img");
+         var slides = slideImg.find(">div");               
+         var slideBtn = container.find(".slide_btn")        
+
+         var slideCount = slides.length;                   
+         var slideWidth = slides.innerWidth();                 
+         var show_num = 3;
+         var num = 0;
+         
+         var slideCopy = $(".slide:lt("+show_num+")").clone();
+         slideImg.append(slideCopy);
+
+         function back(){
+            if(num == 0){
+               num == slideCount;
+               slideImg.css("margin-left",-num * slideWidth +"px" )
+            }
+            num--;
+            slideImg.animate({"margin-left": -slideWidth * num+"px"}, 500);
+         };
+
+         function next(){
+            if(num == slideCount){
+               num = 0;
+               slideImg.css("margin-left",-num * slideWidth +"px");
+            }
+            num++;
+            slideImg.animate({"margin-left": -slideWidth * num+"px"}, 500);
+         };
+         
+         slideBtn.on("click", "a", function(){
+            if($(this).hasClass("prev")){
+               back();
+            } else {
+               next();
+            }
+         });
+         
+         });
+   </script>
+</head>
+<body>
+   <div class="slide_wrap">
+      <div class="slide_show">
+      <div class="slide_img">
+            <div class="slide">
+               <div class="item-1">
+                  Nice cat number 1<br />
+                  <a href="https://www.google.com">adopt me</a>
+               </div>
+            </div>
+            <div class="slide">
+               <div class="item-2">
+                  Nice cat number 2<br />
+                  <a href="https://www.google.com">adopt me</a>
+               </div>
+            </div>
+            <div class="slide">
+               <div class="item-3">
+                  Nice cat number 3<br />
+                  <a href="https://www.google.com">adopt me</a>
+               </div>
+            </div>
+            <div class="slide">
+               <div class="item-4">
+                  Nice cat number 4<br />
+                  <a href="https://www.google.com">adopt me</a>
+               </div>
+            </div>
+        </div> 
+      </div>
+      <div class="slide_btn">
+        <a href="#" class="prev">&lsaquo;</a>
+        <a href="#" class="next">&rsaquo;</a>
+      </div>
+    </div>
+</body>
+</html>
